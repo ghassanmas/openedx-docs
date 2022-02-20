@@ -1,0 +1,1 @@
+edx-sphinx-theme==3.0.0
