@@ -15,5 +15,5 @@ set_audience(OPENEDX, LEARNERS)
 html_static_path = ['_static']
 the_builder = 'html'
 def setup(app):
-    app.add_js_file('.tx.js')
+    app.add_js_file('tx.js')
     app.add_config_value('product', '', True)
