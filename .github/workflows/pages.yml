@@ -1,9 +1,10 @@
-name: Pages #Taken from: https://github.com/sphinx-notes/pages/blob/v2/.github/workflows/pages.yml 
+#Taken from: https://github.com/sphinx-notes/pages/blob/v2/.github/workflows/pages.yml 
+name: Pages 
 on:
  push:
    branches:
     - main
-  workflow_dispatch:
+ workflow_dispatch:
 jobs:
  build:
    runs-on: ubuntu-latest
