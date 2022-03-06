@@ -13,7 +13,7 @@ defaults:
     shell: bash
 
 jobs:
-  push_strings:
+  create_project:
     runs-on: "ubuntu-latest"
     steps:
       - name: "Check out the repo"
