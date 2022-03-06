@@ -1,0 +1,32 @@
+# GitHub Action for creating a transifex project when a release occurs
+
+name: "Create Transifex Project for the new release"
+
+on:
+  push:
+    tags:
+      - "open-release/*.1"
+  workflow_dispatch:
+
+defaults:
+  run:
+    shell: bash
+
+jobs:
+  push_strings:
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Check out the repo"
+        uses: "actions/checkout@v2"
+
+      - name: "Set up Python"
+        uses: "actions/setup-python@v2"
+        with:
+          python-version: "3.8"
+
+      - name : "Create Transifex project"
+        env:
+            TX_TOKEN: ${{ secrets.TX_TOKEN }}
+        run: |
+          python3 create_transifex_project.py ${{github.ref_name}} ${{ secrets.TX_TOKEN }}
+          
