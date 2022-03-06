@@ -28,5 +28,5 @@ jobs:
         env:
             TX_TOKEN: ${{ secrets.TX_TOKEN }}
         run: |
-          python3 create_transifex_project.py ${{github.ref_name}} ${{ TX_TOKEN }}
+          python3 create_transifex_project.py ${{github.ref_name}} "$TX_TOKEN"
           
