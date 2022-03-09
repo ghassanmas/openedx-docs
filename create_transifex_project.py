@@ -1,9 +1,11 @@
+"""A script to create a transifex project when an open-release occur"""
 import sys
 import requests
 
 OPENEDX_ORG_ID = "open-edx-docs"
 TRANSIFEX_API = "https://rest.api.transifex.com"
 REPO_URL = "https://github.com/openedx/edx-platform"
+
 
 def check_arguments_health():
     """
@@ -27,9 +29,9 @@ def check_arguments_health():
     elif len(sys.argv) > 3:
         sys.exit("Too many arguments!")
     else:
-        TX_TOKEN = sys.argv[2]
+        tx_token = sys.argv[2]
         release_name = sys.argv[1]
-        if TX_TOKEN == "":  # Check that Transifex token is not null
+        if tx_token == "":  # Check that Transifex token is not null
             sys.exit("Transifex token is empty. Job aborted")
         if not (
             release_name.startswith("open-release")
@@ -98,17 +100,16 @@ def is_project_exist():
     url = (f"{TRANSIFEX_API}/projects/o:{OPENEDX_ORG_ID}:p:"
            f"{convert_release_to_project_slug()}"
            )
-    print(url)
     response = requests.get(url, headers=headers)
     if response.status_code == 404:
         return False
-    elif response.status_code == 200:
+    if response.status_code == 200:
         sys.exit(
             f"Project with slug {convert_release_to_project_slug()}, already"
             f"exist. Job aborted!."
         )
     else:
-        handle_request_error(response, context="getting a project detail")
+        return handle_request_error(response, context="getting a project detail")
 
 
 def create_transifex_project():
@@ -151,7 +152,6 @@ def create_transifex_project():
         "Authorization": f"Bearer {sys.argv[2]}",
     }
     url = f"{TRANSIFEX_API}/projects"
-    print(payload)
     response = requests.post(url, headers=headers, json=payload)
     if response.status_code == 200:
         print(
