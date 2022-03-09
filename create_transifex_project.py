@@ -109,7 +109,9 @@ def is_project_exist():
             f"exist. Job aborted!."
         )
     else:
-        return handle_request_error(response, context="getting a project detail")
+        return handle_request_error(
+            response, context="getting a project detail"
+            )
 
 
 def create_transifex_project():
